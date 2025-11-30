@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+class HotspotLink {
+  final String targetId;
+  final double yaw;
+  final double pitch;
+
+  HotspotLink({
+    required this.targetId,
+    this.yaw = 0.0,
+    this.pitch = 0.0,
+  });
+}
+
 class MapLocation {
   final String id;
   String title;
@@ -11,10 +23,9 @@ class MapLocation {
   IconData icon;
   String features;
   List<String> equipmentImages;
-  
-  // NUEVO: Lista de IDs de otras ubicaciones a las que se puede ir desde aquí
-  // Ejemplo: Desde P1 puedes ir a S1 y S2.
-  List<String> linkedIds; 
+
+  /// Lista de vínculos hacia otras ubicaciones, con coordenadas exactas para hotspots
+  List<HotspotLink> hotspotLinks;
 
   MapLocation({
     required this.id,
@@ -27,10 +38,9 @@ class MapLocation {
     this.icon = Icons.place,
     this.features = "• Acceso Controlado\n• Aire Acondicionado",
     this.equipmentImages = const [],
-    this.linkedIds = const [],
+    this.hotspotLinks = const [],
   });
 
-  // Método copyWith actualizado
   MapLocation copyWith({
     String? title,
     String? description,
@@ -41,7 +51,7 @@ class MapLocation {
     IconData? icon,
     String? features,
     List<String>? equipmentImages,
-    List<String>? linkedIds,
+    List<HotspotLink>? hotspotLinks,
   }) {
     return MapLocation(
       id: id,
@@ -54,7 +64,7 @@ class MapLocation {
       icon: icon ?? this.icon,
       features: features ?? this.features,
       equipmentImages: equipmentImages ?? this.equipmentImages,
-      linkedIds: linkedIds ?? this.linkedIds,
+      hotspotLinks: hotspotLinks ?? this.hotspotLinks,
     );
   }
 }
