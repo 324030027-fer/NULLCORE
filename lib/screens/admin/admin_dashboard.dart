@@ -9,7 +9,6 @@ class AdminDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MapProvider>(context);
-    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(

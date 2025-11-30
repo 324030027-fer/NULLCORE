@@ -158,7 +158,7 @@ class LocationDetailSheet extends StatelessWidget {
 
                   const SizedBox(height: 24),
 
-                  // SECCIÓN: FOTOS DEL LUGAR (Placeholders)
+                  // Place holders de lugares.
                   const Text("FOTOS DEL LUGAR", style: TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
                   const SizedBox(height: 12),
                   SizedBox(
