@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/map_location.dart';
+import '../screens/panorama_viewer.dart';
 
-// --- MARCADOR NEÓN ---
+// --- MARCADOR NEÓN CIRCULAR ---
 class MapMarker extends StatelessWidget {
   final MapLocation location;
   final bool isSelected;
@@ -62,16 +63,21 @@ class MapMarker extends StatelessWidget {
   }
 }
 
-// --- PANEL DE INFORMACIÓN DETALLADA (Con campos para fotos) ---
+// --- PANEL DE INFORMACIÓN DETALLADA ---
 class LocationDetailSheet extends StatelessWidget {
   final MapLocation location;
+  final ScrollController? scrollController; // CORRECCIÓN: Agregado el controlador
 
-  const LocationDetailSheet({super.key, required this.location});
+  const LocationDetailSheet({
+    super.key, 
+    required this.location, 
+    this.scrollController // CORRECCIÓN: Constructor actualizado
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.75),
+      // Altura dinámica controlada por DraggableScrollableSheet
       decoration: BoxDecoration(
         color: const Color(0xFF2D2D44),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
@@ -79,121 +85,169 @@ class LocationDetailSheet extends StatelessWidget {
         border: Border(top: BorderSide(color: Colors.white.withOpacity(0.1), width: 1))
       ),
       child: SingleChildScrollView(
+        controller: scrollController, // CORRECCIÓN: Conectado al scroll del padre
+        padding: const EdgeInsets.fromLTRB(24, 10, 24, 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Handle
-            Center(
-              child: Container(
-                width: 40, height: 4, 
-                margin: const EdgeInsets.symmetric(vertical: 16), 
-                decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2))
-              )
-            ),
+            Center(child: Container(width: 40, height: 4, margin: const EdgeInsets.only(bottom: 20), decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2)))),
             
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // CABECERA
-                  Row(
+            // Header
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(color: const Color(0xFF6C63FF).withOpacity(0.2), shape: BoxShape.circle),
+                  child: Icon(location.icon, color: const Color(0xFF6C63FF), size: 28),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(color: const Color(0xFF6C63FF).withOpacity(0.2), shape: BoxShape.circle),
-                        child: Icon(location.icon, color: const Color(0xFF6C63FF), size: 28),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(location.category.toUpperCase(), style: const TextStyle(color: Color(0xFF00E5FF), fontWeight: FontWeight.bold, fontSize: 11, letterSpacing: 1.5)),
-                            const SizedBox(height: 4),
-                            Text(location.title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
-                          ],
-                        ),
-                      ),
+                      Text(location.category.toUpperCase(), style: const TextStyle(color: Color(0xFF00E5FF), fontWeight: FontWeight.bold, fontSize: 11, letterSpacing: 1.5)),
+                      const SizedBox(height: 4),
+                      Text(location.title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
                     ],
                   ),
-                  const SizedBox(height: 24),
-                  
-                  // SECCIÓN: DESCRIPCIÓN
-                  const Text("DESCRIPCIÓN", style: TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E1E2C),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white10)
-                    ),
-                    child: Text(
-                      location.description.isNotEmpty ? location.description : "Sin descripción disponible.", 
-                      style: const TextStyle(color: Colors.white70, height: 1.5, fontSize: 14)
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 24),
-
-                  // SECCIÓN: CARACTERÍSTICAS (Aunque esté vacío en mapPoints, mostramos el campo para rellenar después)
-                  const Text("CARACTERÍSTICAS", style: TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1E1E2C),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.white10)
-                    ),
-                    // Usamos un texto placeholder si no hay características
-                    child: Text(
-                      "• Información pendiente de agregar.\n• Espacio reservado para detalles técnicos.",
-                      style: TextStyle(color: Colors.white.withOpacity(0.5), height: 1.5, fontSize: 14, fontStyle: FontStyle.italic)
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Place holders de lugares.
-                  const Text("FOTOS DEL LUGAR", style: TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2)),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 100,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      // Mostramos 3 placeholders fijos
-                      itemCount: 3, 
-                      itemBuilder: (ctx, i) => Container(
-                        width: 140,
-                        margin: const EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1E1E2C),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white12, style: BorderStyle.solid)
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.add_a_photo, color: Colors.white.withOpacity(0.2), size: 24),
-                              const SizedBox(height: 8),
-                              Text("Foto ${i + 1}", style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 10))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                ],
-              ),
+                ),
+              ],
             ),
+            const SizedBox(height: 24),
+            
+            // Descripción
+            _buildSectionTitle("DESCRIPCIÓN"),
+            const SizedBox(height: 8),
+            Text(location.description, style: const TextStyle(color: Colors.white70, height: 1.5, fontSize: 14)),
+            const SizedBox(height: 24),
+
+            // Fotos del Edificio (Placeholders)
+            if (location.equipmentImages.isNotEmpty) ...[
+              _buildSectionTitle("VISTA DEL EDIFICIO"),
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 120,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: location.equipmentImages.length,
+                  itemBuilder: (ctx, i) => Container(
+                    width: 180,
+                    margin: const EdgeInsets.only(right: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      image: DecorationImage(image: AssetImage(location.equipmentImages[i]), fit: BoxFit.cover),
+                      border: Border.all(color: Colors.white12)
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+
+            // Carreras y Laboratorios
+            if (location.careers.isNotEmpty) ...[
+              _buildSectionTitle("CARRERAS Y LABORATORIOS"),
+              const SizedBox(height: 12),
+              ...location.careers.map((career) => _buildCareerSection(context, career)),
+            ] else ...[
+              _buildSectionTitle("CARACTERÍSTICAS"),
+              const SizedBox(height: 8),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(color: const Color(0xFF1E1E2C), borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.white10)),
+                child: Text(location.features, style: const TextStyle(color: Colors.white70, height: 1.5, fontSize: 14)),
+              ),
+            ],
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String text) {
+    return Text(text, style: const TextStyle(color: Colors.grey, fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.2));
+  }
+
+  Widget _buildCareerSection(BuildContext context, CareerInfo career) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E1E2C),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white10)
+      ),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          title: Text(career.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+          leading: const Icon(Icons.school, color: Color(0xFF00E5FF)),
+          childrenPadding: const EdgeInsets.all(16),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
+          children: career.labs.map((lab) => _buildLabItem(context, lab)).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLabItem(BuildContext context, LabInfo lab) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2D2D44),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.white.withOpacity(0.05))
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(lab.imageThumbnail, width: 60, height: 60, fit: BoxFit.cover),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(lab.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+                    const SizedBox(height: 4),
+                    Text("Encargado: ${lab.inCharge}", style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 11)),
+                    Text(lab.contact, style: TextStyle(color: const Color(0xFF00E5FF), fontSize: 11)),
+                  ],
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(lab.description, style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 12)),
+          
+          if (lab.asset360 != null) ...[
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  final tempLoc = MapLocation(
+                    id: 'TEMP_LAB', title: lab.name, description: '', category: 'Laboratorio', x: 0, y: 0, assetImage360: lab.asset360!,
+                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => PanoramaViewer(initialLocation: tempLoc)));
+                },
+                icon: const Icon(Icons.threesixty, size: 18),
+                label: const Text("VER RECORRIDO 360"),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFF00E5FF),
+                  side: const BorderSide(color: Color(0xFF00E5FF)),
+                  padding: const EdgeInsets.symmetric(vertical: 8)
+                ),
+              ),
+            )
+          ]
+        ],
       ),
     );
   }

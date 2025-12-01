@@ -3,191 +3,122 @@ import '../models/map_location.dart';
 
 class MapProvider extends ChangeNotifier {
   
-  // --- LISTA 1: PUNTOS PARA EL MAPA AÉREO ---
+  // --- LISTA 1: PUNTOS PARA EL MAPA AÉREO (Información) ---
   final List<MapLocation> _mapPoints = [
     MapLocation(
-      id: 'RECTORIA',
-      title: 'RECTORÍA',
-      description:
-          'Aquí encontrarás las oficinas relacionadas con trámites, servicios escolares y la sección de rectoría donde se encuentran las autoridades de la institución.',
-      category: 'Administración',
-      x: 0.1016,
-      y: 0.3836,
-      assetImage360: '',
-      icon: Icons.account_balance,
+      id: 'RECTORIA', title: 'RECTORÍA',
+      description: 'Es el edificio que alberga a las máximas autoridades y la administración central de la universidad. Es el centro de las decisiones estratégicas.',
+      category: 'Administración', x: 0.1016, y: 0.3836, assetImage360: '', icon: Icons.account_balance,
+      features: "• Oficinas del Rector: Despacho de la figura directiva principal.\n\n• Direcciones y Coordinaciones: Oficinas de áreas clave como la Secretaría Académica, Administración y Finanzas.\n\n• Área de planeación: Espacios donde se diseñan y gestionan los planes de estudio y el desarrollo institucional.",
+      equipmentImages:  ['assets/rectoria1.jpg',]
     ),
     MapLocation(
-      id: 'BIBLIOTECA',
-      title: 'BIBLIOTECA',
-      description:
-          'Podrás encontrar la parte de biblioteca, un lugar lleno de libros interesantes que podrán ayudarte en la formación y preparación de tu carrera.',
-      category: 'Estudio',
-      x: 0.1195,
-      y: 0.2830,
-      assetImage360: '',
-      icon: Icons.local_library,
+      id: 'BIBLIOTECA', title: 'BIBLIOTECA',
+      description: 'Es el centro de recursos de información académica y de investigación de la universidad.',
+      category: 'Estudio', x: 0.1195, y: 0.2830, assetImage360: '', icon: Icons.local_library,
+      features: "• Acervo bibliográfico: Colección de libros, revistas, tesis y material de consulta impreso\n\n• Área digital: Acceso a bases de datos en línea, e-books y computadoras con internet.\n\n• Préstamo de material: Servicio para llevar libros a casa o consultar en sala.  ", 
+      equipmentImages:  ['assets/biblio1.png',]
     ),
     MapLocation(
-      id: 'UD2',
-      title: 'UD2 (UNIDAD DE DOCENCIA 2)',
-      description:
-          'Salones de clases de: IFI, ITR, IRT, IMT, IME, LAG.\nTambién encontrarás el AUDITORIO UD2 y cubículos de maestros.',
-      category: 'Docencia',
-      x: 0.2332,
-      y: 0.8767,
-      assetImage360: '',
-      icon: Icons.class_outlined,
+      id: 'UD2', title: 'UD2 (UNIDAD DE DOCENCIA 2)',
+      description: 'Similar a la UD1, es otro edificio fundamental para la enseñanza, pero a menudo está más enfocado en laboratorios y prácticas especializadas de las ingenierías y carreras técnicas.',
+      category: 'Docencia', x: 0.2332, y: 0.8767, assetImage360: '', icon: Icons.class_outlined,
+      features: "• Aulas/Salones de clase: Para clases teóricas y seminarios.\n\n• Laboratorios especializados: Espacios equipados con maquinaria, herramientas e instrumentos para la realización de prácticas, experimentos y proyectos (ej. laboratorios de electrónica, mecánica, química, etc., dependiendo de la oferta académica).\n\n• Espacios de trabajo: Áreas para el desarrollo de proyectos de investigación aplicada por parte de estudiantes y profesores.",
+      equipmentImages:  ['assets/UD2.jpg', 'assets/UD21.jpg']
     ),
     MapLocation(
-      id: 'UD1',
-      title: 'UD1 (UNIDAD DE DOCENCIA 1)',
-      description:
-          'Salones de clase de: ISA, IPL (Ing Industrial), IMA.\nAuditorio de UD1 y cubículos de profesores.',
-      category: 'Docencia',
-      x: 0.7996,
-      y: 0.5377,
-      assetImage360: '',
-      icon: Icons.school,
+      id: 'UD1', title: 'UD1 (UNIDAD DE DOCENCIA 1)',
+      description: 'Es uno de los principales edificios dedicados a la enseñanza teórica y la actividad académica cotidiana.',
+      category: 'Docencia', x: 0.7996, y: 0.5377, assetImage360: '', icon: Icons.school,
+      features: "• Aulas/Salones de clase: Espacios equipados con proyectores y pizarrones para la impartición de clases teóricas.\n\n• Cubículos: Oficinas designadas para profesores donde atienden a estudiantes y preparan sus clases.\n\n• Salas de cómputo: Laboratorios equipados con computadoras para asignaturas que requieren software especializado.",
     ),
     MapLocation(
-      id: 'CAFETERIA',
-      title: 'CAFETERÍA',
-      description:
-          'En cafetería podrás comprar tus productos alimenticios, snacks y pasar el tiempo en tu receso.',
-      category: 'Servicios',
-      x: 0.5999,
-      y: 0.3271,
-      assetImage360: '',
-      icon: Icons.restaurant,
+      id: 'CAFETERIA', title: 'CAFETERÍA',
+      description: 'Es el espacio destinado a la alimentación y descanso de la comunidad universitaria (estudiantes, docentes y personal administrativo).',
+      category: 'Servicios', x: 0.5999, y: 0.3271, assetImage360: '', icon: Icons.restaurant,
+      features: ("• Área de servicio: Puntos de venta para comidas completas, refrigerios y bebidas.\n\n • Comedor: Mesas y sillas para consumir alimentos.\n\n• Socialización: Un punto de encuentro y convivencia."),
+      
     ),
     MapLocation(
-      id: 'LT_MAP',
-      title: 'LT (LABORATORIOS)',
-      description:
-          'Salida del centro de laboratorios, camino hacia la entrada de UPJR.',
-      category: 'Laboratorio',
-      x: 0.8000,
-      y: 0.1365,
-      assetImage360: '',
-      icon: Icons.science,
+      id: 'CANCHA', title: 'CANCHA DE USOS MÚLTIPLES',
+      description: 'Es un espacio al aire libre o techado diseñado para la práctica de diversas disciplinas deportivas y eventos recreativos.',
+      category: 'Deportes', x: 0.3594, y: 0.3046, assetImage360: '', icon: Icons.sports_basketball,
+      features: "• Demarcación: Líneas y señalizaciones para deportes como baloncesto, voleibol y fútbol sala.\n\n• Gradas: Asientos para espectadores.\n\n• Actividades: Se utiliza para clases de educación física, torneos, actos cívicos y eventos culturales.",
+      equipmentImages:  ['assets/CANCHA1.png', 'assets/CANCHA2.jpg']
     ),
+    
+    // --- LT MAPA (CON DETALLES DE CARRERAS) ---
     MapLocation(
-      id: 'CANCHA',
-      title: 'CANCHA DE USOS MÚLTIPLES',
-      description:
-          'Cancha techada donde se practica basketball y volleyball. Aquí se desarrollan eventos de la institución.',
-      category: 'Deportes',
-      x: 0.3594,
-      y: 0.3046,
-      assetImage360: '',
-      icon: Icons.sports_basketball,
+      id: 'LT_MAP', title: 'LT (LABORATORIOS)',
+      description: 'Edificio central de laboratorios de alta tecnología.',
+      category: 'Laboratorio', x: 0.8000, y: 0.1365, assetImage360: '', icon: Icons.science,
+      features: "• Acceso biométrico\n• Videovigilancia 24/7",
+      equipmentImages: ['assets/UD1.png'],
+      careers: [
+        CareerInfo(
+          name: "ING. REDES Y TELECOMUNICACIONES / TI",
+          labs: [
+            LabInfo(
+              name: "LAB. DE REDES",
+              description: "Configuración de dispositivos de red, routing y switching.",
+              inCharge: "Ing. Erick Fernando Montecillo Olivares",
+              contact: "emontecillo@upjr.edu.mx",
+              imageThumbnail: "assets/redes.jpg", 
+              asset360: null, // No tiene 360
+            ),
+            LabInfo(
+              name: "LAB. DE ELECTRÓNICA",
+              description: "Equipado con osciloscopios y estaciones de soldadura.",
+              inCharge: "Ing. Erick Fernando Montecillo Olivares",
+              contact: "emontecillo@upjr.edu.mx",
+              imageThumbnail: "assets/pano_electronica.jpg", 
+              asset360: "assets/pano_electronica.jpg",
+            ),
+            LabInfo(
+              name: "LAB. DE TELEMÁTICA",
+              description: "Laboratorio de las carreras de Ing. en Redes y Telecomunicaciones / Ing. en Tecnologías de la Información, cuenta con 28 estaciones de trabajo y equipos de cómputo.",
+              inCharge: "Ing. Erick Fernando Montecillo Olivares",
+              contact: "emontecillo@upjr.edu.mx",
+              imageThumbnail: "assets/pano_telematica.jpg", 
+              asset360: "assets/pano_telematica.jpg",
+            ),
+          ]
+        ),
+      ]
     ),
   ];
 
-  // --- LISTA 2: PUNTOS DE TOUR 360 ---
+  // --- LISTA 2: PUNTOS PARA EL RECORRIDO VIRTUAL (Con Hotspots) ---
   final List<MapLocation> _tourPoints = [
     MapLocation(
-      id: 'E1',
-      title: 'Entrada Trasera',
-      description: 'Acceso posterior del edificio.',
-      category: 'Entrada',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/E1.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'E2', yaw: 90, pitch: -12),
-      ],
+      id: 'E1', title: 'Entrada Trasera', description: '', category: 'Entrada', x: 0, y: 0, 
+      assetImage360: 'assets/E1.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'E2', yaw: 90)],
     ),
     MapLocation(
-      id: 'E2',
-      title: 'Esquina Entrada',
-      description: '',
-      category: 'Entrada',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/E2.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'E1', yaw: -140, pitch: 12),
-        HotspotLink(targetId: 'P1', yaw: 70, pitch: -10),
-      ],
+      id: 'E2', title: 'Esquina Entrada', description: '', category: 'Entrada', x: 0, y: 0, 
+      assetImage360: 'assets/E2.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: 90), HotspotLink(targetId: 'P1', yaw: 90)],
     ),
     MapLocation(
-      id: 'P1',
-      title: 'Pasillo 1',
-      description: '',
-      category: 'Pasillo',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/P1.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'P3', yaw: -160, pitch: -10),
-        HotspotLink(targetId: 'E2', yaw: 0, pitch: -12),
-      ],
+      id: 'P1', title: 'Pasillo 1', description: '', category: 'Pasillo', x: 0, y: 0, 
+      assetImage360: 'assets/P1.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: -90), HotspotLink(targetId: 'P3', yaw: 90)],
     ),
     MapLocation(
-      id: 'P2',
-      title: 'Pasillo 2',
-      description: '',
-      category: 'Pasillo',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/P2.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'E1', yaw: -90, pitch: -13),
-        HotspotLink(targetId: 'S3', yaw: 40, pitch: -15),
-      ],
+      id: 'P3', title: 'Pasillo Central', description: '', category: 'Pasillo', x: 0, y: 0, 
+      assetImage360: 'assets/P3.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'P1', yaw: -90), HotspotLink(targetId: 'S2', yaw: 45)],
     ),
     MapLocation(
-      id: 'P3',
-      title: 'Pasillo Central',
-      description: '',
-      category: 'Pasillo',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/P3.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'P1', yaw: 20, pitch: -10),
-        HotspotLink(targetId: 'S2', yaw: -140, pitch: -13),
-      ],
+      id: 'S2', title: 'Lab. Software (S2)', description: '', category: 'Laboratorio', x: 0, y: 0, 
+      assetImage360: 'assets/S2.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'S1', yaw: 180), HotspotLink(targetId: 'P3', yaw: -45)],
     ),
     MapLocation(
-      id: 'S2',
-      title: 'Lab. Software (S2)',
-      description: '',
-      category: 'Laboratorio',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/S2.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'S1', yaw: 50, pitch: -15),
-        HotspotLink(targetId: 'P3', yaw: -170, pitch: -10),
-      ],
-    ),
-    MapLocation(
-      id: 'S1',
-      title: 'Lab. Redes (S1)',
-      description: '',
-      category: 'Laboratorio',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/S1.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'S2', yaw: -30, pitch: -12),
-        HotspotLink(targetId: 'S3', yaw: 110, pitch: -15),
-      ],
-    ),
-    MapLocation(
-      id: 'S3',
-      title: 'Lab. Electrónica (S3)',
-      description: '',
-      category: 'Laboratorio',
-      x: 0,
-      y: 0,
-      assetImage360: 'assets/S3.jpg',
-      hotspotLinks: [
-        HotspotLink(targetId: 'P2', yaw: -60, pitch: -10),
-        HotspotLink(targetId: 'S1', yaw: 150, pitch: -12),
-      ],
+      id: 'S1', title: 'Lab. Redes (S1)', description: '', category: 'Laboratorio', x: 0, y: 0, 
+      assetImage360: 'assets/S1.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'S2', yaw: 0)],
     ),
   ];
 
@@ -195,7 +126,6 @@ class MapProvider extends ChangeNotifier {
 
   List<MapLocation> get mapPoints => _mapPoints;
   List<MapLocation> get tourPoints => _tourPoints;
-
   MapLocation? get selectedMapLocation => _selectedMapLocation;
 
   void selectMapLocation(MapLocation? location) {
@@ -204,9 +134,18 @@ class MapProvider extends ChangeNotifier {
   }
 
   MapLocation getTourLocationById(String id) {
-    return _tourPoints.firstWhere(
-      (loc) => loc.id == id,
-      orElse: () => _tourPoints.first,
-    );
+    return _tourPoints.firstWhere((loc) => loc.id == id, orElse: () => _tourPoints.first);
+  }
+
+  // Métodos Admin
+  void addMapPoint(MapLocation location) { _mapPoints.add(location); notifyListeners(); }
+  void updateMapPoint(MapLocation location) {
+    final index = _mapPoints.indexWhere((l) => l.id == location.id);
+    if(index != -1) { _mapPoints[index] = location; notifyListeners(); }
+  }
+  void removeMapPoint(String id) {
+    _mapPoints.removeWhere((l) => l.id == id);
+    if (_selectedMapLocation?.id == id) _selectedMapLocation = null;
+    notifyListeners();
   }
 }

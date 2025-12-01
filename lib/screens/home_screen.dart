@@ -106,7 +106,7 @@ class _MapViewState extends State<MapView> {
         // 1. MAPA FULL SCREEN
         Positioned.fill(
           child: GestureDetector(
-            onTap: () => mapProvider.selectMapLocation(null),
+            onTap: () => mapProvider.selectMapLocation(null), // Tocar mapa cierra el panel
             child: InteractiveViewer(
               transformationController: _transformer,
               minScale: 0.5,
@@ -148,12 +148,11 @@ class _MapViewState extends State<MapView> {
           ),
         ),
 
-        // 2. BARRA SUPERIOR (HEADER LIMPIO)
+        // 2. BARRA SUPERIOR
         Positioned(
           top: 0, left: 0, right: 0,
           child: Container(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10, bottom: 16, left: 24, right: 24),
-            // Degradado sutil para leer texto sobre el mapa
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -164,7 +163,6 @@ class _MapViewState extends State<MapView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // TEXTO UPJR MAPA
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -172,42 +170,41 @@ class _MapViewState extends State<MapView> {
                     Text("MAPA CAMPUS", style: TextStyle(color: const Color(0xFF00E5FF).withOpacity(0.8), fontWeight: FontWeight.bold, fontSize: 12, letterSpacing: 3)),
                   ],
                 ),
-                // LOGO LIMPIO (Sin efectos)
-                Image.asset(
-                  'assets/logo.png',
-                  width: 55,
-                  height: 55,
-                  fit: BoxFit.contain,
-                )
+                Image.asset('assets/logo.png', width: 55, height: 55, fit: BoxFit.contain)
               ],
             ),
           ),
         ),
 
-        // 3. BOTÓN ADMIN (Discreto)
-        Positioned(
-          right: 20,
-          bottom: 110,
-          child: FloatingActionButton(
-            heroTag: 'admin_tools',
-            backgroundColor: const Color(0xFF2D2D44),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: Colors.white.withOpacity(0.1))),
-            elevation: 10,
-            child: const Icon(Icons.add_location_alt_outlined, color: Color(0xFF00E5FF)),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AdminDashboard())),
+        // 3. BOTÓN ADMIN (Se oculta si hay panel abierto para no estorbar)
+        if (mapProvider.selectedMapLocation == null)
+          Positioned(
+            right: 20,
+            bottom: 110,
+            child: FloatingActionButton(
+              heroTag: 'admin_tools',
+              backgroundColor: const Color(0xFF2D2D44),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: Colors.white.withOpacity(0.1))),
+              elevation: 10,
+              child: const Icon(Icons.add_location_alt_outlined, color: Color(0xFF00E5FF)),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AdminDashboard())),
+            ),
           ),
-        ),
 
-        // 4. PANEL DE DETALLE MEJORADO
-        AnimatedPositioned(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOutExpo,
-          left: 0, right: 0,
-          bottom: mapProvider.selectedMapLocation != null ? 0 : -800,
-          child: mapProvider.selectedMapLocation != null
-              ? LocationDetailSheet(location: mapProvider.selectedMapLocation!)
-              : const SizedBox.shrink(),
-        ),
+        // 4. PANEL DESLIZABLE (DraggableScrollableSheet)
+        // Solo se construye si hay una ubicación seleccionada
+        if (mapProvider.selectedMapLocation != null)
+          DraggableScrollableSheet(
+            initialChildSize: 0.8, // Empieza ocupando el 40% de la pantalla (NO TOTALMENTE)
+            minChildSize: 0.2,     // Se puede bajar hasta el 20%
+            maxChildSize: 0.9,     // Se puede subir hasta el 90% (casi todo)
+            builder: (context, scrollController) {
+              return LocationDetailSheet(
+                location: mapProvider.selectedMapLocation!,
+                scrollController: scrollController, // Pasamos el controlador para que el scroll funcione al arrastrar
+              );
+            },
+          ),
       ],
     );
   }
