@@ -56,6 +56,7 @@ class _PanoramaViewerState extends State<PanoramaViewer> {
         centerTitle: true,
       ),
       body: Panorama(
+        
         key: ValueKey(currentLocation.assetImage360),
         zoom: 1.0, 
         animSpeed: 0.0, 

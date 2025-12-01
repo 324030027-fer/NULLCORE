@@ -10,14 +10,14 @@ class MapProvider extends ChangeNotifier {
       description: 'Es el edificio que alberga a las máximas autoridades y la administración central de la universidad. Es el centro de las decisiones estratégicas.',
       category: 'Administración', x: 0.1016, y: 0.3836, assetImage360: '', icon: Icons.account_balance,
       features: "• Oficinas del Rector: Despacho de la figura directiva principal.\n\n• Direcciones y Coordinaciones: Oficinas de áreas clave como la Secretaría Académica, Administración y Finanzas.\n\n• Área de planeación: Espacios donde se diseñan y gestionan los planes de estudio y el desarrollo institucional.",
-      equipmentImages:  ['assets/rectoria1.jpg',]
+      equipmentImages:  ['assets/rectoria1.jpg','assets/EDIFICIOSRECT.jpg']
     ),
     MapLocation(
       id: 'BIBLIOTECA', title: 'BIBLIOTECA',
       description: 'Es el centro de recursos de información académica y de investigación de la universidad.',
       category: 'Estudio', x: 0.1195, y: 0.2830, assetImage360: '', icon: Icons.local_library,
       features: "• Acervo bibliográfico: Colección de libros, revistas, tesis y material de consulta impreso\n\n• Área digital: Acceso a bases de datos en línea, e-books y computadoras con internet.\n\n• Préstamo de material: Servicio para llevar libros a casa o consultar en sala.  ", 
-      equipmentImages:  ['assets/biblio1.png',]
+      equipmentImages:  ['assets/biblio1.png','assets/EDIFICIOSRECT.jpg']
     ),
     MapLocation(
       id: 'UD2', title: 'UD2 (UNIDAD DE DOCENCIA 2)',
@@ -31,13 +31,14 @@ class MapProvider extends ChangeNotifier {
       description: 'Es uno de los principales edificios dedicados a la enseñanza teórica y la actividad académica cotidiana.',
       category: 'Docencia', x: 0.7996, y: 0.5377, assetImage360: '', icon: Icons.school,
       features: "• Aulas/Salones de clase: Espacios equipados con proyectores y pizarrones para la impartición de clases teóricas.\n\n• Cubículos: Oficinas designadas para profesores donde atienden a estudiantes y preparan sus clases.\n\n• Salas de cómputo: Laboratorios equipados con computadoras para asignaturas que requieren software especializado.",
+      equipmentImages:  ['assets/UD1.png','assets/UD1_IN.jpg']
     ),
     MapLocation(
       id: 'CAFETERIA', title: 'CAFETERÍA',
       description: 'Es el espacio destinado a la alimentación y descanso de la comunidad universitaria (estudiantes, docentes y personal administrativo).',
       category: 'Servicios', x: 0.5999, y: 0.3271, assetImage360: '', icon: Icons.restaurant,
       features: ("• Área de servicio: Puntos de venta para comidas completas, refrigerios y bebidas.\n\n • Comedor: Mesas y sillas para consumir alimentos.\n\n• Socialización: Un punto de encuentro y convivencia."),
-      
+      equipmentImages:  ['assets/CAFE11.jpg','assets/CAFEPRIN.jpg']
     ),
     MapLocation(
       id: 'CANCHA', title: 'CANCHA DE USOS MÚLTIPLES',
@@ -53,7 +54,7 @@ class MapProvider extends ChangeNotifier {
       description: 'Edificio central de laboratorios de alta tecnología.',
       category: 'Laboratorio', x: 0.8000, y: 0.1365, assetImage360: '', icon: Icons.science,
       features: "• Acceso biométrico\n• Videovigilancia 24/7",
-      equipmentImages: ['assets/UD1.png'],
+      equipmentImages: ['assets/LT1.jpg', 'assets/LT12.jpg'],
       careers: [
         CareerInfo(
           name: "ING. REDES Y TELECOMUNICACIONES / TI",
@@ -93,7 +94,7 @@ class MapProvider extends ChangeNotifier {
     MapLocation(
       id: 'E1', title: 'Entrada Trasera', description: '', category: 'Entrada', x: 0, y: 0, 
       assetImage360: 'assets/E1.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'E2', yaw: 93), HotspotLink(targetId: 'P2', yaw: -87)],
+      hotspotLinks: [HotspotLink(targetId: 'E2', yaw: 93), HotspotLink(targetId: 'E3', yaw: -87)],
     ),
     MapLocation(
       id: 'E2', title: 'Esquina Derecha', description: '', category: 'Esquina', x: 0, y: 0, 
@@ -125,11 +126,26 @@ class MapProvider extends ChangeNotifier {
       assetImage360: 'assets/S3.jpg', 
       hotspotLinks: [HotspotLink(targetId: 'P2', yaw: 45), HotspotLink(targetId: 'EP', yaw: -45)],
     ),
+     MapLocation(
+      id: 'P4', title: 'Pasillo 4', description: '', category: 'Pasillo', x: 0, y: 0, 
+      assetImage360: 'assets/P4.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'P2', yaw: 90), HotspotLink(targetId: 'BM', yaw: -90)],
+    ),
     MapLocation(
       id: 'P2', title: 'Pasillo 2', description: '', category: 'Pasillo', x: 0, y: 0, 
       assetImage360: 'assets/P2.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: 90), HotspotLink(targetId: 'S3', yaw: -90)],
+      hotspotLinks: [HotspotLink(targetId: 'E3', yaw: 90), HotspotLink(targetId: 'P4', yaw: -90), HotspotLink(targetId: 'LT', yaw: -110)],
     ),
+         MapLocation(
+      id: 'E3', title: 'Esquina Izquierda', description: '', category: 'Esquina', x: 0, y: 0, 
+      assetImage360: 'assets/E3.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: 42), HotspotLink(targetId: 'P2', yaw: -45)],
+    ),
+    MapLocation(
+      id: 'LT', title: 'LAB TELEMATICA', description: '', category: 'Edificio', x: 0, y: 0, 
+      assetImage360: 'assets/pano_telematica.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'P2', yaw: -45)],
+    ),    
   ];
 
   MapLocation? _selectedMapLocation;
