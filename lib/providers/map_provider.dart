@@ -93,32 +93,42 @@ class MapProvider extends ChangeNotifier {
     MapLocation(
       id: 'E1', title: 'Entrada Trasera', description: '', category: 'Entrada', x: 0, y: 0, 
       assetImage360: 'assets/E1.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'E2', yaw: 90)],
+      hotspotLinks: [HotspotLink(targetId: 'E2', yaw: 93), HotspotLink(targetId: 'P2', yaw: -87)],
     ),
     MapLocation(
-      id: 'E2', title: 'Esquina Entrada', description: '', category: 'Entrada', x: 0, y: 0, 
+      id: 'E2', title: 'Esquina Derecha', description: '', category: 'Esquina', x: 0, y: 0, 
       assetImage360: 'assets/E2.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: 90), HotspotLink(targetId: 'P1', yaw: 90)],
+      hotspotLinks: [HotspotLink(targetId: 'P1', yaw: 45), HotspotLink(targetId: 'E1', yaw: -45)],
     ),
     MapLocation(
       id: 'P1', title: 'Pasillo 1', description: '', category: 'Pasillo', x: 0, y: 0, 
       assetImage360: 'assets/P1.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: -90), HotspotLink(targetId: 'P3', yaw: 90)],
+      hotspotLinks: [HotspotLink(targetId: 'P3', yaw: 140), HotspotLink(targetId: 'E2', yaw: -85)],
     ),
     MapLocation(
       id: 'P3', title: 'Pasillo Central', description: '', category: 'Pasillo', x: 0, y: 0, 
       assetImage360: 'assets/P3.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'P1', yaw: -90), HotspotLink(targetId: 'S2', yaw: 45)],
+      hotspotLinks: [HotspotLink(targetId: 'BH', yaw: 0), HotspotLink(targetId: 'P1', yaw: 180)],
     ),
     MapLocation(
-      id: 'S2', title: 'Lab. Software (S2)', description: '', category: 'Laboratorio', x: 0, y: 0, 
+      id: 'BH', title: 'Baños Hombres', description: '', category: 'Baños H', x: 0, y: 0, 
       assetImage360: 'assets/S2.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'S1', yaw: 180), HotspotLink(targetId: 'P3', yaw: -45)],
+      hotspotLinks: [HotspotLink(targetId: 'EP', yaw: 37), HotspotLink(targetId: 'P3', yaw: -55)],
     ),
     MapLocation(
-      id: 'S1', title: 'Lab. Redes (S1)', description: '', category: 'Laboratorio', x: 0, y: 0, 
+      id: 'EP', title: 'Entrada Principal', description: '', category: 'Entrada', x: 0, y: 0, 
       assetImage360: 'assets/S1.jpg', 
-      hotspotLinks: [HotspotLink(targetId: 'S2', yaw: 0)],
+      hotspotLinks: [HotspotLink(targetId: 'BM', yaw: 90), HotspotLink(targetId: 'BH', yaw: -85)],
+    ),
+        MapLocation(
+      id: 'BM', title: 'Baños Mujeres', description: '', category: 'Baños M', x: 0, y: 0, 
+      assetImage360: 'assets/S3.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'P2', yaw: 45), HotspotLink(targetId: 'EP', yaw: -45)],
+    ),
+    MapLocation(
+      id: 'P2', title: 'Pasillo 2', description: '', category: 'Pasillo', x: 0, y: 0, 
+      assetImage360: 'assets/P2.jpg', 
+      hotspotLinks: [HotspotLink(targetId: 'E1', yaw: 90), HotspotLink(targetId: 'S3', yaw: -90)],
     ),
   ];
 
