@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/map_provider.dart';
+import 'providers/auth_provider.dart';
 import 'screens/splash_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MapProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: const NullCoreMapsApp(),
     ),
@@ -24,24 +28,25 @@ class NullCoreMapsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: 'Montserrat', // Si no tienes la fuente, usará la default, pero la configuro.
-        scaffoldBackgroundColor: const Color(0xFFF0F4F8), // Blanco grisáceo moderno
+        fontFamily: 'Montserrat',
+        scaffoldBackgroundColor: const Color(0xFFF0F4F8),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6C63FF), // Violeta moderno
+          seedColor: const Color(0xFF6C63FF),
           primary: const Color(0xFF6C63FF),
-          secondary: const Color(0xFF00E5FF), // Cian eléctrico
-          tertiary: const Color(0xFFFF2E63), // Rosa neón para acentos
+          secondary: const Color(0xFF00E5FF),
+          tertiary: const Color(0xFFFF2E63),
           surface: Colors.white,
         ),
-        // Personalizamos botones elevados por defecto
-        filledButtonTheme: FilledButtonThemeData(
-          style: FilledButton.styleFrom(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          ),
-        ),
       ),
-      home: const SplashScreen(),
+      home: Consumer<AuthProvider>(
+        builder: (ctx, auth, _) {
+          if (auth.isLoggedIn) {
+            return const HomeScreen();
+          } else {
+            return LoginScreen();
+          }
+        },
+      ),
     );
   }
 }
