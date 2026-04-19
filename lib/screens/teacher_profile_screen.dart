@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; // ← Agregar esta importación
 import 'contacts_screen.dart';
 
 class TeacherProfileScreen extends StatelessWidget {
   final Contact teacher;
 
   const TeacherProfileScreen({super.key, required this.teacher});
+
+  // Función para enviar correo
+  Future<void> _sendEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: teacher.email,
+      query:
+          'subject=Consulta%20desde%20NULLCORE%20MAPS&body=Hola%20profesor%2C',
+    );
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      // Si no se puede abrir, mostramos un mensaje
+      throw 'No se pudo abrir el cliente de correo';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +72,8 @@ class TeacherProfileScreen extends StatelessWidget {
             _infoRow(Icons.location_on, 'Oficina', teacher.office),
             const SizedBox(height: 24),
             OutlinedButton.icon(
-              onPressed: () {
-                // Aquí puedes abrir un chat o marcador telefónico
+              onPressed: () async {
+                await _sendEmail(); // ← Llamamos a la función de envío
               },
               icon: const Icon(Icons.chat),
               label: const Text('ENVIAR MENSAJE'),

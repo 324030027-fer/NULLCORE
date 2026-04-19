@@ -23,15 +23,50 @@ class Contact {
 
 final List<Contact> teachers = [
   Contact(
-    id: '1',
+    id: '001',
     name: 'Ing. Erick Fernando Montecillo Olivares',
     subject: 'Redes y Telecomunicaciones',
     email: 'emontecillo@upjr.edu.mx',
-    phone: '771 XXX XXXX',
-    office: 'Laboratorio de Redes - LT',
+    phone: 'Unknown',
+    office: 'Laboratorio de Electronica - LT',
     imageAsset: 'assets/teacher_erick.png',
   ),
-  // Agrega más profesores
+  Contact(
+    id: '002',
+    name: 'Doc. Joel Quintanilla Dominguez',
+    subject: 'Redes y Telecomunicaciones',
+    email: 'jquintanilla@upjr.edu.mx',
+    phone: 'Unknown',
+    office: 'UD1 - Primer Piso',
+    imageAsset: 'assets/teacher_joel.png',
+  ),
+  Contact(
+    id: '003',
+    name: 'Doc. Juan Israel Yañez Vargas',
+    subject: 'Redes y Telecomunicaciones',
+    email: 'jyanez@upjr.edu.mx',
+    phone: 'Unknown',
+    office: 'UD1 - Primer Piso',
+    imageAsset: 'assets/teacher_juan.png',
+  ),
+  Contact(
+    id: '004',
+    name: 'Ing. Juan Heriberto Gallegos Galindo',
+    subject: 'Redes y Telecomunicaciones',
+    email: 'jgallegos@upjr.edu.mx',
+    phone: 'Unknown',
+    office: 'UD2 - Primer Piso',
+    imageAsset: 'assets/teacher_juanH.png',
+  ),
+  Contact(
+    id: '005',
+    name: 'Ing. Miguel Arreguin Juarez',
+    subject: 'Redes y Telecomunicaciones',
+    email: 'marreguin@upjr.edu.mx',
+    phone: 'Unknown',
+    office: 'UD2 - Primer Piso',
+    imageAsset: 'assets/teacher_migue.png',
+  ),
 ];
 
 class ContactsScreen extends StatelessWidget {
